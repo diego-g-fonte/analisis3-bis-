@@ -12,7 +12,7 @@ abline(v = 2017)
 dev.off()
 
 png("cantidad_publicaciones/cantidad_publicaciones_smooth.png")
-scatter.smooth(t_años, type = "l", main = "publicaciones anuales", col = "#ADADAD", ylim = c(0, 37))
+scatter.smooth(t_años, type = "h", main = "publicaciones anuales", col = "#ADADAD", ylim = c(0, 37))
 abline(v = 6)
 abline(v = 12)
 dev.off()
