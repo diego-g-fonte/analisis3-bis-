@@ -53,3 +53,7 @@ e <- scale(estilo1117)
 png("correlacion_cantidad_estilo/correlación1117.png")
 plot(a, e)
 dev.off()
+
+# 2009 -2017
+pear0917 <- cor(t_años[4:12], estilo[4:12])
+spea0917 <- cor(t_años[4:12], estilo[4:12], method = "spearman")

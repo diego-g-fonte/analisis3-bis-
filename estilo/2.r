@@ -31,6 +31,8 @@ freqM2 <- freqM1[, 2:ncol(freqM1)]
 colnames(freqM2)[1] <- "metadatosAño"
 row.names(freqM2) <- freqM1[, 1]                # freqM2 tiene los doc_nums como row names y los años de publicación como la primera columna
 
+saveRDS(freqM2, "freqM2.rds")
+
 ## 17 VARIABLES PARA 17 AÑOS ##
 a2006 <- freqM2[which(grepl("2006", freqM2$metadatosAño)), 2:ncol(freqM2)]
 a2007 <- freqM2[which(grepl("2007", freqM2$metadatosAño)), 2:ncol(freqM2)]

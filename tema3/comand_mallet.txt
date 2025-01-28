@@ -1,0 +1,2 @@
+bin/mallet import-dir --input /data/Documents/UNAM/titulacion/codigo/analisis3/tema3/textos_a_id --output /data/Documents/UNAM/titulacion/codigo/analisis3/tema3/topic-input.mallet \
+  --keep-sequence --remove-stopwords --extra-stopwords /data/Documents/UNAM/titulacion/codigo/analisis3/tema2/stop_words.txt

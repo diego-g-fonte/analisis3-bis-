@@ -1,3 +1,6 @@
+### OBSOLETO ###
+#### porque terminé usando los metadatos de tesiunam, que son más acertados
+
 # Aquí voy a contar la cantidad de trabajos que tengo por año
 
 raw <- readRDS("textos_con_puntuacion.rds")

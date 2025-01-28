@@ -1,34 +1,8 @@
 # Aquí voy a ver cuales son las palabras más y menos frecuentes en los puntos de inflección
+freqM2 <- readRDS("freqM2.rds")
 
-### HACER EL DATA FRAME DE FRECUENCIA RELATIVA X TRABAJO ###
-
-# obtener los ids de los trabajos
-raw_txt <- readLines("estilo/table_with_frequencies.txt")
-ids1 <- unlist(strsplit(raw_txt[1], " "))   # sacar los datos
-ids2 <- gsub("\"primera_|\"segunda_", "", ids1) # borrar información innecesaria
-ids <- substr(ids2, 1, nchar(ids2) - 1) # borrar información innecesaria
-
-# obtener las frecuencias relativas
-raw <- read.table("estilo/table_with_frequencies.txt")
-freq1 <- raw
-colnames(freq1) <- ids
-
-freq <- freq1[1:150, ]      # sólo las 150 palabras más frecuentes
-freq <- t(freq)
-
-# dividir por año
-metadatos1 <- readRDS("textos_con_puntuacion.rds")
-metadatos <- data.frame(metadatos1$año, row.names = metadatos1$doc_num)
-
-freqM1 <- merge(x = metadatos,                  # juntar los metadatos de año y doc_num con 'freq'. frequency + Metadatos
-                y = freq,
-                by = 0)
-
-freqM2 <- freqM1[, 2:ncol(freqM1)]
-colnames(freqM2)[1] <- "metadatosAño"
-row.names(freqM2) <- freqM1[, 1]                # freqM2 tiene los doc_nums como row names y los años de publicación como la primera columna
-
-## 17 VARIABLES PARA 17 AÑOS ##
+# 17 VARIABLES PARA 17 AÑOS ##
+# para esto sólo necesito a2011 y a2017 pero no está de más tener todas
 a2006 <- freqM2[which(grepl("2006", freqM2$metadatosAño)), 2:ncol(freqM2)]
 a2007 <- freqM2[which(grepl("2007", freqM2$metadatosAño)), 2:ncol(freqM2)]
 a2008 <- freqM2[which(grepl("2008", freqM2$metadatosAño)), 2:ncol(freqM2)]
@@ -50,5 +24,10 @@ a2021 <- freqM2[which(grepl("2021", freqM2$metadatosAño)), 2:ncol(freqM2)]
 a2022 <- freqM2[which(grepl("2022", freqM2$metadatosAño)), 2:ncol(freqM2)]
 a2023 <- freqM2[which(grepl("2023", freqM2$metadatosAño)), 2:ncol(freqM2)]
 
-# Sacar las más y menos frecuentes
-t2011 <- lapply(a2011[, 1:150], mean)
+# populares 2011
+p2011 <- unlist(lapply(a2011, mean))
+
+# populares 2017
+p2017 <- unlist(lapply(a2017, mean))
+
+diferencias <- sort(abs(p2017 - p2011), decreasing = TRUE)
