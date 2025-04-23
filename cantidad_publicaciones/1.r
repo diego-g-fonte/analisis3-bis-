@@ -64,3 +64,33 @@ ggplot(ta_2006_2023, aes(x = fecha, y = cantidad)) +
     ) +
     labs(title = "trabajos publicados anualmente (2006-2023)", x = "año", y = "cantidad")
 dev.off()
+
+# graficar del 2006 al 2023 resaltando del 2011 al 2017
+ta_2006_2023 <- trabajos_anuales[42:59, ]
+
+png("cantidad_publicaciones/cantidad_publicaciones_2006_2023_resaltado.png", width = 1000, height = 600)
+ggplot(ta_2006_2023, aes(x = fecha, y = cantidad)) +
+    geom_rect(
+        xmin = 2011,
+        xmax = 2017,
+        ymin = -Inf,
+        ymax = Inf,
+        fill = "#ffbaba",
+        alpha = 0.05 # Adjust transparency as needed
+    ) +
+    geom_line(size = 1) +
+    coord_cartesian(ylim = c(0, NA)) +
+    scale_x_continuous(breaks = seq(2006, 2023, by = 1)) +  # Set ticks every 1 unit
+    scale_y_continuous(breaks = seq(0, 35, by = 5)) +  # Set ticks every 1 unit
+    theme(
+        plot.title = element_text(hjust = 0.5, size = 25),
+        axis.text.x = element_text(size = 15),  # Make x-axis tick labels bigger
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 16),  # Make x-axis label bigger
+        axis.title.y = element_text(size = 16),
+        plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major.y = element_line(color = "#6f6f6f", size = 0.5),  # Horizontal grid lines
+    ) +
+    labs(title = "trabajos publicados anualmente (2006-2023)", x = "año", y = "cantidad")
+dev.off()
