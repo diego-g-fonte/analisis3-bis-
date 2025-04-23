@@ -1,7 +1,5 @@
-# Quiero ver si puedo recrear las gráficas en esta compu
-
-# Aquí voy a sacar la regresión de la gráfica. Hasta la línea 98 es una copia
-# de 1.r
+# intento de sacar estilo_smooth con ggplot
+library("ggplot2")
 
 ### HACER EL DATA FRAME DE FRECUENCIA RELATIVA X TRABAJO ###
 
@@ -98,24 +96,28 @@ m23 <- mean(d23)
 # graficar
 juntos <- c(m06, m07, m08, m09, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23)
 
-png("estilo/estilo150.png", height = 1000, width = 1000)
-plot(juntos, type = "l", xaxt = "n", main = "estilo", xlab = "", ylab = "", cex.main = 2, cex.axis = 2, cex.lab = 2, lwd = 2)
-axis(1, at = 1:18, labels = 2006:2023, cex.axis = 2)
-for (i in seq(1, length(juntos), by = 2)) {
-  abline(v = i, col = "gray", lty = 1)  # Add dashed vertical lines
-}
-dev.off()
+# ggplot smooth
+ggj <- data.frame(
+    fecha = 2006:2023,
+    valor = juntos
+) #GGplot Juntos
 
-png("estilo/estilo150_y_real.png")
-plot(juntos, type = "l", xaxt = "n", main = "estilo", xlab = "", ylab = "", ylim = c(0, 3.3))
-axis(1, at = 1:18, labels = 2006:2023)
-dev.off()
+png("estilo/gg_estilo150_smooth.png", height = 1000, width = 1000)
+ggplot(ggj, aes(x = fecha, y = valor)) +
+    geom_line(size = 2, color = "grey") +
+    geom_smooth(se = FALSE, size = 2, color = "black") +
+    scale_x_continuous(breaks = seq(2006, 2023, by = 2)) +  # Set ticks every 1 unit
+    theme(
+        plot.title = element_text(hjust = 0.5, size = 40, margin = margin(0, 20, 20, 20)),
+        axis.text.x = element_text(size = 30),  # Make x-axis tick labels bigger
+        axis.text.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30, margin = margin(20, 20, 20, 20)),  # Make x-axis label bigger
+        axis.title.y = element_text(size = 30, margin = margin(20, 20, 20, 20)),
+        #plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_line(color = "gray", size = 0.5),  # Horizontal grid lines
+        #panel.border = element_rect(color = "black", size = 1, fill = NA),
+    ) +
+    labs(title = "estilo", x = "año", y = "distancia promedio")
 
-# smooth
-png("estilo/estilo150_smooth.png", height = 1000, width = 1000)
-scatter.smooth(juntos, type = "l", col = "#b5d9e4", xaxt = "n", main = "estilo", xlab = "", ylab = "", cex.main = 2, cex.axis = 2, cex.lab = 2, lwd = 3)
-axis(1, at = 1:18, labels = 2006:2023, cex.axis = 2)
-for (i in seq(1, length(juntos), by = 2)) {
-  abline(v = i, col = "#d8d8d8", lty = 1)  # Add dashed vertical lines
-}
 dev.off()

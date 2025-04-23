@@ -1,11 +1,17 @@
-# Example data (your vector of 50 data points)
-data <- rnorm(50)  # replace this with your actual data vector
+library(ggplot2)
 
-# Convert the vector into a data frame
-df <- data.frame(values = data)
+# Sample data
+data <- data.frame(x = 1:10, y = c(2, 4, 3, 6, 8, 7, 9, 11, 10, 13))
 
-# Plot the histogram
-ggplot(df, aes(x = values)) +
-  geom_histogram(binwidth = 0.5, fill = "blue", color = "black") +
-  theme_minimal() +
-  labs(title = "Histogram of Data", x = "Values", y = "Frequency")
+# Create the scatterplot with smoothed line
+ggplot(data, aes(x, y)) +
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE, size = 2) 
+
+# To adjust the weight (thickness) of the smooth line:
+# Change the value of 'size' within geom_smooth()
+
+# Example:
+ggplot(data, aes(x, y)) +
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE, size = 1.5)

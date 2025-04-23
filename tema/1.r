@@ -100,9 +100,36 @@ axis(1, at = 1:18, labels = 2006:2023)
 dev.off()
 
 # smooth
-png("tema/tema_smooth.png")
-scatter.smooth(juntos, type = "l", col = "#ADADAD", xaxt = "n", main = "tema", xlab = "", ylab = "")
-axis(1, at = 1:18, labels = 2006:2023)
-abline(v = 6)
-abline(v = 12)
+png("tema/tema_smooth.png", height = 1000, width = 1000)
+scatter.smooth(juntos, type = "l", col = "#b5d9e4", xaxt = "n", main = "tema", xlab = "", ylab = "", cex.main = 2, cex.axis = 2, cex.lab = 2, lwd = 3)
+axis(1, at = 1:18, labels = 2006:2023, cex.axis = 2)
+for (i in seq(1, length(juntos), by = 2)) {
+  abline(v = i, col = "#d8d8d8", lty = 1)
+}  # Add dashed vertical lines
+dev.off()
+
+# ggplot smooth
+# ggplot smooth
+ggj <- data.frame(
+    fecha = 2006:2023,
+    valor = juntos
+) #GGplot Juntos
+
+png("tema/gg_tema_smooth.png", height = 1000, width = 1000)
+ggplot(ggj, aes(x = fecha, y = valor)) +
+    geom_line(size = 2, color = "grey") +
+    geom_smooth(se = FALSE, size = 2, color = "black") +
+    scale_x_continuous(breaks = seq(2006, 2023, by = 2)) +  # Set ticks every 1 unit
+    theme(
+        plot.title = element_text(hjust = 0.5, size = 40, margin = margin(0, 20, 20, 20)),
+        axis.text.x = element_text(size = 30),  # Make x-axis tick labels bigger
+        axis.text.y = element_text(size = 30),
+        axis.title.x = element_text(size = 30, margin = margin(20, 20, 20, 20)),  # Make x-axis label bigger
+        axis.title.y = element_text(size = 30, margin = margin(20, 20, 20, 20)),
+        #plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_line(color = "gray", size = 0.5),  # Horizontal grid lines
+        #panel.border = element_rect(color = "black", size = 1, fill = NA),
+    ) +
+    labs(title = "tema", x = "año", y = "distancia promedio")
 dev.off()

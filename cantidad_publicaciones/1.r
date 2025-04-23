@@ -33,10 +33,10 @@ ggplot(trabajos_anuales, aes(x = fecha, y = cantidad)) +
     scale_y_continuous(breaks = seq(0, 35, by = 5)) +  # Set ticks every 1 unit
     theme(
         plot.title = element_text(hjust = 0.5, size = 25),
-        axis.text.x = element_text(size = 15),  # Make x-axis tick labels bigger
-        axis.text.y = element_text(size = 15),
-        axis.title.x = element_text(size = 16),  # Make x-axis label bigger
-        axis.title.y = element_text(size = 16),
+        axis.text.x = element_text(size = 20),  # Make x-axis tick labels bigger
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),  # Make x-axis label bigger
+        axis.title.y = element_text(size = 20),
         plot.background = element_rect(fill = "white"),
         panel.background = element_rect(fill = "white"),
         panel.grid.major.y = element_line(color = "gray", size = 0.5),  # Horizontal grid lines
@@ -62,5 +62,5 @@ ggplot(ta_2006_2023, aes(x = fecha, y = cantidad)) +
         panel.background = element_rect(fill = "white"),
         panel.grid.major.y = element_line(color = "gray", size = 0.5),  # Horizontal grid lines
     ) +
-    labs(title = "trabajos publicados anualmente", x = "año", y = "cantidad")
+    labs(title = "trabajos publicados anualmente (2006-2023)", x = "año", y = "cantidad")
 dev.off()
